@@ -21,15 +21,18 @@ spec:
     - - name: mypredictor
         template: mycodeblock1
   - name: mycodeblock1
+    metadata:
+      labels:
+        ai.sap.com/resourcePlan: starter
     inputs:
-      artifacts:  # placeholder for cloud storage attachements
-        - name: housedataset # a name for the placeholder
-          path: /app/data/ # where to copy in the Dataset in the Docker image
+      artifacts:
+        - name: housedataset
+          path: /app/data/
     container:
-      image: docker.io/joshrh2603/house-price:03 # Your docker image name
+      image: docker.io/joshrh2603/house-price:03
       command: ["/bin/sh", "-c"]
       env:
-        - name: DT_MAX_DEPTH # name of the environment variable inside Docker container
-          value: "{{workflow.parameters.DT_MAX_DEPTH}}" # value to set from local (to workflow) variable DT_MAX_DEPTH
+        - name: DT_MAX_DEPTH
+          value: "{{workflow.parameters.DT_MAX_DEPTH}}"
       args:
         - "python /app/src/main.py"
