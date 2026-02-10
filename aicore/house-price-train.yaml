@@ -13,13 +13,21 @@ metadata:
     ai.sap.com/version: "1.0"
 spec:
   imagePullSecrets:
-    - name: sap-test # your docker registry secret
+    - name: sap-test
   entrypoint: mypipeline
+
+  arguments:
+    parameters:
+      - name: DT_MAX_DEPTH
+        description: "Profundidad máxima del árbol de decisión"
+        default: "5"
+
   templates:
   - name: mypipeline
     steps:
     - - name: mypredictor
         template: mycodeblock1
+
   - name: mycodeblock1
     metadata:
       labels:
